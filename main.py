@@ -30,7 +30,6 @@ class myConfig(object):
 
 
 
-
 # To set your environment variables in your terminal run the following line:
 # export 'BEARER_TOKEN'='<your_bearer_token>'
 apikey,apisecret,bearer = myConfig().loadConfig()
@@ -51,7 +50,7 @@ def get_params():
     # in_reply_to_user_id, lang, non_public_metrics, organic_metrics,
     # possibly_sensitive, promoted_metrics, public_metrics, referenced_tweets,
     # source, text, and withheld
-    return {"tweet.fields": "created_at"}
+    return {"tweet.fields": "text"}
 
 
 def bearer_oauth(r):
@@ -95,9 +94,19 @@ def fuck():
     url = create_url()
     params = get_params()
     json_response = connect_to_endpoint(url, params)
-    print(json.dumps(json_response, indent=4, sort_keys=True))
+    cleanprep = json.dumps(json_response, indent=4, sort_keys=True)
+    #print(cleanprep)
 
+    # clean up output
+    charWash = ['{', '}', ',']
+    translation_table = str.maketrans('', '', ''.join(charWash))
+    prepWashed = cleanprep.translate(translation_table)
+    print(prepWashed)
 
+    with open('results.txt', 'w') as f:
+        prepcache = f.write(json.dumps(json_response, indent=4, sort_keys=True))
+        print(cleanprep)
+        f.write(prepWashed)
 
 if __name__ == "__main__":
     fuck()
