@@ -93,20 +93,23 @@ def fuck():
 
     url = create_url()
     params = get_params()
-    json_response = connect_to_endpoint(url, params)
-    cleanprep = json.dumps(json_response, indent=4, sort_keys=True)
-    #print(cleanprep)
 
     # clean up output
-    charWash = ['{', '}', ',']
+    charWash = ['{', '}', ',', '"']
     translation_table = str.maketrans('', '', ''.join(charWash))
+
+    json_response = connect_to_endpoint(url, params)
+    cleanprep = json.dumps(json_response, indent=4, sort_keys=True).translate(translation_table)
+    #print(cleanprep)
+
+
     prepWashed = cleanprep.translate(translation_table)
     print(prepWashed)
 
     with open('results.txt', 'w') as f:
-        prepcache = f.write(json.dumps(json_response, indent=4, sort_keys=True))
+        prepcache = json.dumps(json_response, indent=4, sort_keys=True).translate(translation_table)
+        f.write(prepcache)
         print(cleanprep)
-        f.write(prepWashed)
 
 if __name__ == "__main__":
     fuck()
