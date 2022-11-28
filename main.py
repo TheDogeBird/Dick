@@ -99,7 +99,7 @@ def fuck():
     translation_table = str.maketrans('', '', ''.join(charWash))
 
     json_response = connect_to_endpoint(url, params)
-    cleanprep = json.dumps(json_response, indent=4, sort_keys=True).translate(translation_table)
+    cleanprep = json.dumps(json_response, indent=0, sort_keys=True).translate(translation_table)
     #print(cleanprep)
 
 
@@ -107,7 +107,7 @@ def fuck():
     print(prepWashed)
 
     with open('results.txt', 'w') as f:
-        prepcache = json.dumps(json_response, indent=4, sort_keys=True).translate(translation_table)
+        prepcache = json.dumps(json_response, indent=0, sort_keys=True).translate(translation_table)
         f.write(prepcache)
         print(cleanprep)
 
