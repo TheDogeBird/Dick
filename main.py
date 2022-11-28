@@ -77,12 +77,7 @@ def connect_to_endpoint(url, params):
     return response.json()
 
 
-
-
-
-
-
-
+# My name is Buck, and I'm here to...
 def fuck():
     # Set config data
     apikey,apisecret,bearer = myConfig().loadConfig()
